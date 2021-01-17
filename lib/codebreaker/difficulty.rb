@@ -6,23 +6,22 @@ module Codebreaker
                medium: { name: :medium, attempts: 10, hints: 1 },
                hell: { name: :hell, attempts: 5, hints: 1 } }.freeze
 
-    attr_reader :name, :attempts, :hints
+    attr_reader :level, :errors
 
     def initialize(name)
-      @difficulty = LEVELS.fetch(name) { nil }
-      call if valid?
+      @level = LEVELS.fetch(name&.to_sym) { nil }
+      @errors = []
     end
 
     def valid?
-      !@difficulty.nil?
+      validate
+      errors.empty?
     end
 
     private
 
-    def call
-      @name     = @difficulty[:name]
-      @attempts = @difficulty[:attempts]
-      @hints    = @difficulty[:hints]
+    def validate
+      errors << 'Error difficulty' if @level.nil?
     end
   end
 end

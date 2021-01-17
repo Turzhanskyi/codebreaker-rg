@@ -3,14 +3,17 @@
 RSpec.describe Codebreaker::Difficulty do
   subject(:difficulty) { described_class }
 
-  let(:correct_difficulty) { described_class::LEVELS.keys.sample }
-  let(:incorrect_difficulty) { :custom }
+  let(:game_levels) { { easy: :easy, medium: :medium, hell: :hell } }
+  let(:correct_difficulty_name) { game_levels.keys.sample }
+  let(:incorrect_difficulty_names) { [:custom, nil] }
 
   it 'valid with correct difficulty' do
-    expect(difficulty.new(correct_difficulty).name).to eql(correct_difficulty)
+    expect(difficulty.new(correct_difficulty_name).level[:name]).to eql(correct_difficulty_name)
   end
 
   it 'not valid with incorrect difficulty' do
-    expect(difficulty.new(incorrect_difficulty).valid?).to be false
+    incorrect_difficulty_names.each do |name|
+      expect(difficulty.new(name).valid?).to be false
+    end
   end
 end

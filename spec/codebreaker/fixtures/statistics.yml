@@ -1,47 +1,58 @@
 ---
 :winners:
-  - !ruby/object:Codebreaker::User
-    name: Darynka
+  - !ruby/object:Codebreaker::Game
+    status: win
+    user: !ruby/object:Codebreaker::User
+      name: Katya
+      created_at: !ruby/object:DateTime 2021-01-18 08:10:01.958299000 +02:00
+    difficulty:
+      :name: :hell
+      :attempts: 5
+      :hints: 1
+    secret_code: 3264
+    hints:
+      - '3'
     hints_used: 0
-    attempts_used: 0
-    created_at: !ruby/object:DateTime 2021-01-16 12:16:51.958299000 +02:00
-    difficulty: !ruby/object:Codebreaker::Difficulty
-      name: hell
-      hints: 1
-      attempts: 0
-  - !ruby/object:Codebreaker::User
-    name: Vitalii
+    attempts_used: 2
+  - !ruby/object:Codebreaker::Game
+    status: win
+    user: !ruby/object:Codebreaker::User
+      name: Darynka
+      created_at: !ruby/object:DateTime 2021-01-18 09:16:51.958299000 +02:00
+    difficulty:
+      :name: :hell
+      :attempts: 5
+      :hints: 1
+    secret_code: 2546
+    hints:
+      - '6'
     hints_used: 0
-    attempts_used: 1
-    created_at: !ruby/object:DateTime 2021-01-16 13:20:32.850499000 +02:00
-    difficulty: !ruby/object:Codebreaker::Difficulty
-      name: hell
-      hints: 1
-      attempts: 5
-  - !ruby/object:Codebreaker::User
-    name: Petro
+    attempts_used: 2
+  - !ruby/object:Codebreaker::Game
+    status: win
+    user: !ruby/object:Codebreaker::User
+      name: Vitalii
+      created_at: !ruby/object:DateTime 2021-01-18 13:20:32.850499000 +02:00
+    difficulty:
+      :name: :hell
+      :attempts: 5
+      :hints: 1
+    secret_code: 5666
+    hints:
+      - '6'
     hints_used: 0
-    attempts_used: 1
-    created_at: !ruby/object:DateTime 2021-01-17 10:37:27.487752000 +02:00
-    difficulty: !ruby/object:Codebreaker::Difficulty
-      name: hell
-      hints: 1
-      attempts: 5
-  - !ruby/object:Codebreaker::User
-    name: Ivan
-    hints_used: 0
-    attempts_used: 1
-    created_at: !ruby/object:DateTime 2021-01-17 13:40:33.850499000 +02:00
-    difficulty: !ruby/object:Codebreaker::Difficulty
-      name: hell
-      hints: 1
-      attempts: 5
-  - !ruby/object:Codebreaker::User
-    name: Vova
+    attempts_used: 2
+  - !ruby/object:Codebreaker::Game
+    status: win
+    user: !ruby/object:Codebreaker::User
+      name: Petro
+      created_at: !ruby/object:DateTime 2021-01-18 13:40:33.850499000 +02:00
+    difficulty:
+      :name: :medium
+      :attempts: 10
+      :hints: 1
+    secret_code: 6233
+    hints:
+      - '6'
     hints_used: 0
     attempts_used: 3
-    created_at: !ruby/object:DateTime 2021-01-17 15:16:51.958299000 +02:00
-    difficulty: !ruby/object:Codebreaker::Difficulty
-      name: medium
-      hints: 1
-      attempts: 10

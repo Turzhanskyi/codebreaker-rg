@@ -6,43 +6,55 @@ module Codebreaker
     CODE_RANGE = (1..6).freeze
     EXACT_MATCH_SIGN = '1'
     NOT_EXACT_MATCH_SIGN = '0'
-    STATUS_IN_PROGRESS = 'in progress'
-    STATUS_WIN = 'win'
-    STATUS_LOST = 'lost'
 
-    attr_reader :user, :difficulty, :status, :secret_number
+    attr_reader :user, :difficulty, :secret_code, :hints_used, :attempts_used
 
     def initialize(user, difficulty)
-      @status = STATUS_IN_PROGRESS
       @user = user
-      @difficulty = difficulty
-      @user.add_difficulty(difficulty)
-      @secret_number = code_generator
+      @difficulty = difficulty.level
+      @secret_code = code_generator
       assign_hints
+      @hints_used = 0
+      @attempts_used = 0
     end
 
-    def win?
-      @status == STATUS_WIN
+    def hints_total
+      @difficulty[:hints]
     end
 
-    def lost?
-      @status == STATUS_LOST
+    def attempts_total
+      @difficulty[:attempts]
     end
 
-    def in_progress?
-      @status == STATUS_IN_PROGRESS
+    def attempt
+      @attempts_used += 1
     end
 
-    def compare(user_number)
-      @user.attempt!
-      result = compare_numbers(user_number)
-      win if result == EXACT_MATCH_SIGN * CODE_LENGTH
-      lost unless @user.attempts_available?
-      result
+    def increment_hint
+      @hints_used += 1
+    end
+
+    def hints_available?
+      @hints_used < @difficulty[:hints]
+    end
+
+    def attempts_available?
+      @attempts_used < @difficulty[:attempts]
+    end
+
+    def win?(user_code)
+      secret_code == user_code.to_s
+    end
+
+    def compare(user_code)
+      return secret_code if win?(user_code) || !attempts_available?
+
+      attempt
+      compare_codes(user_code)
     end
 
     def hint
-      user.hint! if user.hints_available?
+      increment_hint if hints_available?
 
       @hints.pop
     end
@@ -50,48 +62,40 @@ module Codebreaker
     private
 
     def assign_hints
-      @hints = @secret_number.to_s.chars.shuffle.sample(@user.difficulty.hints)
+      @hints = @secret_code.chars.shuffle.sample(difficulty[:hints])
     end
 
     def code_generator
-      Array.new(CODE_LENGTH) { rand(CODE_RANGE) }.join.to_i
+      Array.new(CODE_LENGTH) { rand(CODE_RANGE) }.join.to_s
     end
 
-    def lost
-      @status = STATUS_LOST
-    end
-
-    def win
-      @status = STATUS_WIN
-    end
-
-    def compare_numbers(user_number)
-      secret_digits = @secret_number.to_s.chars
-      user_digits = user_number.to_s.chars
-      output = strong_match(secret_digits, user_digits)
-      output += not_strong_match(secret_digits, user_digits)
+    def compare_codes(user_code)
+      secret_codes = @secret_code.chars
+      user_codes = user_code.chars
+      output = strong_match(secret_codes, user_codes)
+      output += not_strong_match(secret_codes, user_codes)
       output
     end
 
-    def strong_match(secret_digits, user_digits)
+    def strong_match(secret_codes, user_codes)
       output = ''
-      secret_digits.each_with_index do |digit, index|
-        next unless digit == user_digits[index]
+      secret_codes.each_with_index do |code, index|
+        next unless code == user_codes[index]
 
         output += EXACT_MATCH_SIGN
-        secret_digits[index] = nil
-        user_digits[index] = nil
+        secret_codes[index] = nil
+        user_codes[index] = nil
       end
       output
     end
 
-    def not_strong_match(secret_digits, user_digits)
+    def not_strong_match(secret_codes, user_codes)
       output = ''
-      secret_digits.each do |digit|
-        next unless digit && user_digits.include?(digit)
+      secret_codes.each do |code|
+        next unless code && user_codes.include?(code)
 
         output += NOT_EXACT_MATCH_SIGN
-        user_digits.delete_at(user_digits.index(digit))
+        user_codes.delete_at(user_codes.index(code))
       end
       output
     end

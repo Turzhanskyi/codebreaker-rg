@@ -2,12 +2,12 @@
 
 RSpec.describe Codebreaker::Guess do
   context 'when guess validation' do
-    let(:non_number) { '#$jhs' }
+    let(:non_code) { '#$jhs' }
     let(:empty) { '' }
     let(:negative) { -1234 }
 
-    it 'have numbers' do
-      expect(described_class.new(non_number).valid?).to be false
+    it 'have codes' do
+      expect(described_class.new(non_code).valid?).to be false
     end
 
     it 'not empty' do

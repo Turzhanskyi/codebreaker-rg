@@ -4,51 +4,42 @@ module Codebreaker
   class User
     NAME_LENGTH_RANGE = (3..20).freeze
 
-    attr_reader :name, :hints_used, :attempts_used, :created_at, :difficulty
+    attr_reader :name, :created_at, :errors
 
     def initialize(name)
       @name = name
-      @hints_used = 0
-      @attempts_used = 0
       @created_at = DateTime.now
-    end
-
-    def add_difficulty(difficulty)
-      @difficulty = difficulty
-    end
-
-    def hints_total
-      @difficulty.hints
-    end
-
-    def attempts_total
-      @difficulty.attempts
-    end
-
-    def attempt!
-      @attempts_used += 1
-    end
-
-    def hint!
-      @hints_used += 1
-    end
-
-    def hints_available?
-      @hints_used < @difficulty.hints
-    end
-
-    def attempts_available?
-      @attempts_used < @difficulty.attempts
-    end
-
-    def reset!
-      @hints_used = 0
-      @attempts_used = 0
+      @errors = []
     end
 
     def valid?
-      name.to_s.length.between?(NAME_LENGTH_RANGE.min,
-                                NAME_LENGTH_RANGE.max) && /\A[a-zA-Z_]+\z/.match?(name.to_s)
+      validate
+      errors.empty?
+    end
+
+    private
+
+    def validate
+      validate_not_empty
+      validate_string if errors.empty?
+      validate_min_length if errors.empty?
+      validate_max_length if errors.empty?
+    end
+
+    def validate_not_empty
+      errors << 'name cannot be blank' if name.to_s.strip.empty?
+    end
+
+    def validate_string
+      errors << 'name should be a string' unless !!(name =~ /\A[a-zA-Z_0-9]+\z/)
+    end
+
+    def validate_min_length
+      errors << "min name length is #{NAME_LENGTH_RANGE.min}" if name.length < NAME_LENGTH_RANGE.min
+    end
+
+    def validate_max_length
+      errors << "max name length is #{NAME_LENGTH_RANGE.max}" if name.length > NAME_LENGTH_RANGE.max
     end
   end
 end
