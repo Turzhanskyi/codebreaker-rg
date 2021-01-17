@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   spec.require_paths = 'lib'
 
+  spec.add_development_dependency 'faker', '~> 2.15', '>= 2.15.1'
   spec.add_development_dependency 'fasterer', '~> 0.8.3'
   spec.add_development_dependency 'pry', '~> 0.13.1'
   spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.3'

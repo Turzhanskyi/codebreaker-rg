@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'codebreaker/version'
+require 'date'
+require 'yaml/store'
+require 'faker'
+require 'pry'
 
-module Codebreaker
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative 'codebreaker/statistics'
+require_relative 'codebreaker/storage'
+require_relative 'codebreaker/difficulty_error'
+require_relative 'codebreaker/difficulty'
+require_relative 'codebreaker/guess'
+require_relative 'codebreaker/user'
+require_relative 'codebreaker/game'
+require_relative 'codebreaker/version'

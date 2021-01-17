@@ -1,0 +1,47 @@
+---
+:winners:
+  - !ruby/object:Codebreaker::User
+    name: Darynka
+    hints_used: 0
+    attempts_used: 0
+    created_at: !ruby/object:DateTime 2021-01-16 12:16:51.958299000 +02:00
+    difficulty: !ruby/object:Codebreaker::Difficulty
+      name: hell
+      hints: 1
+      attempts: 0
+  - !ruby/object:Codebreaker::User
+    name: Vitalii
+    hints_used: 0
+    attempts_used: 1
+    created_at: !ruby/object:DateTime 2021-01-16 13:20:32.850499000 +02:00
+    difficulty: !ruby/object:Codebreaker::Difficulty
+      name: hell
+      hints: 1
+      attempts: 5
+  - !ruby/object:Codebreaker::User
+    name: Petro
+    hints_used: 0
+    attempts_used: 1
+    created_at: !ruby/object:DateTime 2021-01-17 10:37:27.487752000 +02:00
+    difficulty: !ruby/object:Codebreaker::Difficulty
+      name: hell
+      hints: 1
+      attempts: 5
+  - !ruby/object:Codebreaker::User
+    name: Ivan
+    hints_used: 0
+    attempts_used: 1
+    created_at: !ruby/object:DateTime 2021-01-17 13:40:33.850499000 +02:00
+    difficulty: !ruby/object:Codebreaker::Difficulty
+      name: hell
+      hints: 1
+      attempts: 5
+  - !ruby/object:Codebreaker::User
+    name: Vova
+    hints_used: 0
+    attempts_used: 3
+    created_at: !ruby/object:DateTime 2021-01-17 15:16:51.958299000 +02:00
+    difficulty: !ruby/object:Codebreaker::Difficulty
+      name: medium
+      hints: 1
+      attempts: 10

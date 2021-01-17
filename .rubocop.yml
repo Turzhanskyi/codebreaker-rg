@@ -13,3 +13,9 @@ Style/Documentation:
 
 Style/StringLiterals:
   Enabled: true
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+
+Style/RedundantFetchBlock:
+  Enabled: false
