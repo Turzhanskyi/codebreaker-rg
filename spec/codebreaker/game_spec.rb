@@ -2,17 +2,16 @@
 
 RSpec.describe Codebreaker::Game do
   let(:name) { "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
-  let(:game) do
-    described_class.new(Codebreaker::User.new(name),
-                        Codebreaker::Difficulty.new(Codebreaker::Difficulty::LEVELS.keys.sample))
-  end
+  let(:difficulty) { Codebreaker::Difficulty.new(Codebreaker::Difficulty::LEVELS.keys.sample) }
+  let(:game) { described_class.new(Codebreaker::User.new(name), difficulty) }
+  let(:status_win) { 'win' }
 
   it 'has user with name' do
     expect(game.user.name).to eql name
   end
 
   it 'when win status' do
-    game.instance_variable_set(:@status, 'win')
+    game.instance_variable_set(:@status, status_win)
     expect(game.win?).to be true
   end
 
@@ -21,7 +20,7 @@ RSpec.describe Codebreaker::Game do
   end
 
   it 'when lost status' do
-    (game.user.difficulty.attempts + 1).times { game.compare(1111) }
+    (game.difficulty.attempts + 1).times { game.compare(1111) }
     expect(game.status).to be described_class::STATUS_LOST
   end
 
@@ -30,7 +29,7 @@ RSpec.describe Codebreaker::Game do
   end
 
   it 'no hints' do
-    (game.user.difficulty.hints + 1).times { game.hint }
+    (game.difficulty.hints + 1).times { game.hint }
     expect(game.hint).to be_falsey
   end
 

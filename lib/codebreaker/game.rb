@@ -3,19 +3,19 @@
 module Codebreaker
   class Game
     CODE_LENGTH = 4
-    CODE_START_RANGE = 1
-    CODE_END_RANGE = 6
+    CODE_RANGE = (1..6).freeze
     EXACT_MATCH_SIGN = '1'
     NOT_EXACT_MATCH_SIGN = '0'
     STATUS_IN_PROGRESS = 'in progress'
     STATUS_WIN = 'win'
     STATUS_LOST = 'lost'
 
-    attr_reader :user, :status, :secret_number
+    attr_reader :user, :difficulty, :status, :secret_number
 
     def initialize(user, difficulty)
       @status = STATUS_IN_PROGRESS
       @user = user
+      @difficulty = difficulty
       @user.add_difficulty(difficulty)
       @secret_number = code_generator
       assign_hints
@@ -54,9 +54,7 @@ module Codebreaker
     end
 
     def code_generator
-      Array.new(CODE_LENGTH) do
-        rand(CODE_START_RANGE..CODE_END_RANGE)
-      end.join.to_i
+      Array.new(CODE_LENGTH) { rand(CODE_RANGE) }.join.to_i
     end
 
     def lost

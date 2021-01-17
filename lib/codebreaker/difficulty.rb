@@ -9,8 +9,8 @@ module Codebreaker
     attr_reader :name, :attempts, :hints
 
     def initialize(name)
-      create_difficulty(name)
-      attributes if valid?
+      @difficulty = LEVELS.fetch(name) { nil }
+      call if valid?
     end
 
     def valid?
@@ -19,11 +19,7 @@ module Codebreaker
 
     private
 
-    def create_difficulty(name)
-      @difficulty = LEVELS.fetch(name) { nil }
-    end
-
-    def attributes
+    def call
       @name     = @difficulty[:name]
       @attempts = @difficulty[:attempts]
       @hints    = @difficulty[:hints]

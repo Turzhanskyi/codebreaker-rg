@@ -2,8 +2,7 @@
 
 module Codebreaker
   class User
-    MIN_NAME_LENGTH = 3
-    MAX_NAME_LENGTH = 20
+    NAME_LENGTH_RANGE = (3..20).freeze
 
     attr_reader :name, :hints_used, :attempts_used, :created_at, :difficulty
 
@@ -48,8 +47,8 @@ module Codebreaker
     end
 
     def valid?
-      name.to_s.length.between?(MIN_NAME_LENGTH,
-                                MAX_NAME_LENGTH) && /\A[a-zA-Z_]+\z/.match?(name.to_s)
+      name.to_s.length.between?(NAME_LENGTH_RANGE.min,
+                                NAME_LENGTH_RANGE.max) && /\A[a-zA-Z_]+\z/.match?(name.to_s)
     end
   end
 end

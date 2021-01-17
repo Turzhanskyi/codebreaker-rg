@@ -6,16 +6,12 @@ module Codebreaker
 
     def initialize(value)
       @value = value
-      @valid = true
     end
 
     def valid?
-      start_range = Game::CODE_START_RANGE
-      end_range = Game::CODE_END_RANGE
-      unless /^[#{start_range}-#{end_range}]{#{Game::CODE_LENGTH}}$/.match @value.to_s
-        @valid = false
-      end
-      @valid
+      start_range = Game::CODE_RANGE.min
+      end_range = Game::CODE_RANGE.max
+      @value.to_s =~ /^[#{start_range}-#{end_range}]{#{Game::CODE_LENGTH}}$/ ? true : false
     end
   end
 end
