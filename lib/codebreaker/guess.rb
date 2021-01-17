@@ -22,12 +22,12 @@ module Codebreaker
     end
 
     def validate_length
-      error_message = "guess should have #{Game::CODE_LENGTH} codes length"
+      error_message = I18n.t(:'errors.guess.length', length: Game::CODE_LENGTH)
       errors << error_message unless @value.to_s.chars.length == Game::CODE_LENGTH
     end
 
     def validate_range
-      error_message = "each guess code is allowed in #{Game::CODE_RANGE} range inclusively"
+      error_message = I18n.t(:'errors.guess.range', range: Game::CODE_RANGE)
       allowed_range = Game::CODE_RANGE.to_a
       is_valid_range = @value.to_s.chars.map(&:to_i).all? { |n| allowed_range.include? n }
       errors << error_message unless is_valid_range

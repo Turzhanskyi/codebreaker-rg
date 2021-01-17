@@ -21,7 +21,7 @@ module Codebreaker
     private
 
     def validate
-      errors << 'Error difficulty' if @level.nil?
+      errors << I18n.t(:'errors.difficulty') if @level.nil?
     end
   end
 end

@@ -1,0 +1,12 @@
+---
+en:
+  errors:
+    difficulty: 'Error difficulty!'
+    guess:
+      length: "guess should have %{length} digits length"
+      range: "each guess digit is allowed in #{range} range inclusively"
+    user:
+      blank_name: 'name cannot be blank'
+      non_string_name: 'name should be a string'
+      min_length_name: "min name length is %{length}"
+      max_length_name: "max name length is %{length}"

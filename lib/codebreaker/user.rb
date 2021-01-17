@@ -27,19 +27,27 @@ module Codebreaker
     end
 
     def validate_not_empty
-      errors << 'name cannot be blank' if name.to_s.strip.empty?
+      errors << I18n.t(:'errors.user.blank_name') if name.to_s.strip.empty?
     end
 
     def validate_string
-      errors << 'name should be a string' unless !!(name =~ /\A[a-zA-Z_0-9]+\z/)
+      errors << I18n.t(:'errors.user.non_string_name') unless !!(name =~ /\A[a-zA-Z_0-9]+\z/)
     end
 
     def validate_min_length
-      errors << "min name length is #{NAME_LENGTH_RANGE.min}" if name.length < NAME_LENGTH_RANGE.min
+      min_length = NAME_LENGTH_RANGE.min
+      return unless name.length < min_length
+
+      errors << I18n.t(:'errors.user.min_length_name',
+                       length: min_length)
     end
 
     def validate_max_length
-      errors << "max name length is #{NAME_LENGTH_RANGE.max}" if name.length > NAME_LENGTH_RANGE.max
+      max_length = NAME_LENGTH_RANGE.max
+      return unless name.length > max_length
+
+      errors << I18n.t(:'errors.user.max_length_name',
+                       length: max_length)
     end
   end
 end
