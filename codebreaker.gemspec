@@ -3,7 +3,7 @@
 require_relative 'lib/codebreaker/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.2')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
 
   spec.name          = 'codebreaker'
   spec.version       = Codebreaker::VERSION
@@ -22,8 +22,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.10'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.4.1'
   spec.add_development_dependency 'rubocop', '~> 1.8', '>= 1.8.1'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.9', '>= 1.9.2'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.1'
   spec.add_development_dependency 'simplecov', '~> 0.21.2'
 
-  spec.files = Dir['{lib}/**/*.rb', 'bin/*', 'LICENSE', '*.md']
+  spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec)/}) }
 end

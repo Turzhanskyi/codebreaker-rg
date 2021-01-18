@@ -28,7 +28,7 @@ module Codebreaker
 
     def validate_length
       error_message = I18n.t(:'errors.guess.length', length: Game::CODE_LENGTH)
-      errors << error_message unless @value.to_s.chars.length == Game::CODE_LENGTH
+      errors << error_message unless @value.to_s.length == Game::CODE_LENGTH
     end
 
     def validate_range
