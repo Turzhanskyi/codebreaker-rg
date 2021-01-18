@@ -47,7 +47,7 @@ module Codebreaker
     end
 
     def compare(user_code)
-      return secret_code if win?(user_code) || !attempts_available?
+      return EXACT_MATCH_SIGN * CODE_LENGTH if win?(user_code) || !attempts_available?
 
       attempt
       compare_codes(user_code)

@@ -4,6 +4,11 @@ module Codebreaker
   class Guess
     attr_reader :value, :errors
 
+    def self.decorate(value, strict_match = '+', soft_match = '-')
+      value.gsub(Codebreaker::Game::EXACT_MATCH_SIGN, strict_match)
+           .gsub(Codebreaker::Game::NOT_EXACT_MATCH_SIGN, soft_match)
+    end
+
     def initialize(value)
       @value = value
       @errors = []

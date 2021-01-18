@@ -32,65 +32,32 @@ RSpec.describe Codebreaker::Game do
     expect(game.hint).to be_falsey
   end
 
-  context 'with first RubyGarage Codebreaker examples matrix' do
-    before do
-      game.instance_variable_set(:@secret_code, '6543')
-    end
-
-    it 'guess 1100' do
-      expect(game.compare('5643')).to eql '1100'
-    end
-
-    it 'guess 10' do
-      expect(game.compare('6411')).to eql '10'
-    end
-
-    it 'guess 111' do
-      expect(game.compare('6544')).to eql '111'
-    end
-
-    it 'guess 0000' do
-      expect(game.compare('3456')).to eql '0000'
-    end
-
-    it 'guess 1' do
-      expect(game.compare('6666')).to eql '1'
-    end
-
-    it 'guess 0' do
-      expect(game.compare('2666')).to eql '0'
-    end
-
-    it 'guess empty' do
-      expect(game.compare('2222')).to eql ''
-    end
-  end
-
-  context 'with second RubyGarage Codebreaker examples matrix' do
-    before do
-      game.instance_variable_set(:@secret_code, '6666')
-    end
-
-    it 'guess 11' do
-      expect(game.compare('1661')).to eql '11'
-    end
-  end
-
-  context 'with third RubyGarage Codebreaker examples matrix' do
-    before do
-      game.instance_variable_set(:@secret_code, '1234')
-    end
-
-    it 'guess 1000' do
-      expect(game.compare('3124')).to eql '1000'
-    end
-
-    it 'guess 110' do
-      expect(game.compare('1524')).to eql '110'
-    end
-
-    it 'full guess' do
-      expect(game.compare('1234')).to be '1234'
+  context 'with RubyGarage Codebreaker examples matrix' do
+    [
+      [[6, 5, 4, 1], [6, 5, 4, 1], [PLUS, PLUS, PLUS, PLUS]],
+      [[1, 2, 2, 1], [2, 1, 1, 2], [MINUS, MINUS, MINUS, MINUS]],
+      [[6, 2, 3, 5], [2, 3, 6, 5], [PLUS, MINUS, MINUS, MINUS]],
+      [[1, 2, 3, 4], [4, 3, 2, 1], [MINUS, MINUS, MINUS, MINUS]],
+      [[1, 2, 3, 4], [1, 2, 3, 5], [PLUS, PLUS, PLUS]],
+      [[1, 2, 3, 4], [5, 4, 3, 1], [PLUS, MINUS, MINUS]],
+      [[1, 2, 3, 4], [1, 5, 2, 4], [PLUS, PLUS, MINUS]],
+      [[1, 2, 3, 4], [4, 3, 2, 6], [MINUS, MINUS, MINUS]],
+      [[1, 2, 3, 4], [3, 5, 2, 5], [MINUS, MINUS]],
+      [[1, 2, 3, 4], [5, 6, 1, 2], [MINUS, MINUS]],
+      [[5, 5, 6, 6], [5, 6, 0, 0], [PLUS, MINUS]],
+      [[1, 2, 3, 4], [6, 2, 5, 4], [PLUS, PLUS]],
+      [[1, 2, 3, 1], [1, 1, 1, 1], [PLUS, PLUS]],
+      [[1, 1, 1, 5], [1, 2, 3, 1], [PLUS, MINUS]],
+      [[1, 2, 3, 4], [4, 2, 5, 5], [PLUS, MINUS]],
+      [[1, 2, 3, 4], [5, 6, 3, 5], [PLUS]],
+      [[1, 2, 3, 4], [6, 6, 6, 6], []],
+      [[1, 2, 3, 4], [2, 5, 5, 2], [MINUS]]
+    ].each do |item|
+      it "when result is #{item[2]}, secret code is #{item[0]} and guess is #{item[1]}" do
+        game.instance_variable_set(:@secret_code, item[0].join)
+        guess = item[1].join
+        expect(Codebreaker::Guess.decorate(game.compare(guess))).to eq item[2].join
+      end
     end
   end
 end
