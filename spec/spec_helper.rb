@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-PLUS = '+'
-MINUS = '-'
-
 require 'codebreaker'
 require 'simplecov'
 

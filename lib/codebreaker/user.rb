@@ -2,8 +2,6 @@
 
 module Codebreaker
   class User
-    NAME_LENGTH_RANGE = (3..20).freeze
-
     attr_reader :name, :created_at, :errors
 
     def initialize(name)
@@ -35,7 +33,7 @@ module Codebreaker
     end
 
     def validate_min_length
-      min_length = NAME_LENGTH_RANGE.min
+      min_length = Codebreaker::Constants::NAME_LENGTH_RANGE.min
       return unless name.length < min_length
 
       errors << I18n.t(:'errors.user.min_length_name',
@@ -43,7 +41,7 @@ module Codebreaker
     end
 
     def validate_max_length
-      max_length = NAME_LENGTH_RANGE.max
+      max_length = Codebreaker::Constants::NAME_LENGTH_RANGE.max
       return unless name.length > max_length
 
       errors << I18n.t(:'errors.user.max_length_name',

@@ -2,8 +2,8 @@
 
 RSpec.describe Codebreaker::User do
   context 'with name validation' do
-    let(:above_max_length_name) { 'f' * (described_class::NAME_LENGTH_RANGE.max + 1) }
-    let(:below_min_length_name) { 'f' * (described_class::NAME_LENGTH_RANGE.min - 1) }
+    let(:above_max_length_name) { 'f' * (Codebreaker::Constants::NAME_LENGTH_RANGE.max + 1) }
+    let(:below_min_length_name) { 'f' * (Codebreaker::Constants::NAME_LENGTH_RANGE.min - 1) }
     let(:non_string_names) { ['1111@', 1111, '#@#$'] }
     let(:empty_name) { '' }
 
@@ -31,8 +31,8 @@ RSpec.describe Codebreaker::User do
   end
 
   context 'when valid user edge cases' do
-    let(:min_length_name) { 'f' * described_class::NAME_LENGTH_RANGE.min }
-    let(:max_length_name) { 'f' * described_class::NAME_LENGTH_RANGE.max }
+    let(:min_length_name) { 'f' * Codebreaker::Constants::NAME_LENGTH_RANGE.min }
+    let(:max_length_name) { 'f' * Codebreaker::Constants::NAME_LENGTH_RANGE.max }
 
     it 'creates user with min allowed length' do
       user = described_class.new(min_length_name)
