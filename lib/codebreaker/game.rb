@@ -59,13 +59,13 @@ module Codebreaker
     private
 
     def assign_hints
-      @hints = @secret_code.chars.shuffle.sample(difficulty[:hints])
+      @hints = @secret_code.chars.sample(difficulty[:hints])
     end
 
     def code_generator
       Array.new(Codebreaker::Constants::CODE_LENGTH) do
         rand(Codebreaker::Constants::CODE_RANGE)
-      end.join.to_s
+      end.join
     end
 
     def compare_codes(user_code)
