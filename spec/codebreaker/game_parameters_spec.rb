@@ -7,25 +7,11 @@ RSpec.describe Codebreaker::Game do
 
   context 'with difficulty' do
     it 'hints' do
-      expect(game.hints_total).to eql difficulty.level[:hints]
+      expect(game.hints_total).to eql difficulty.difficulty_level[:hints]
     end
 
     it 'attempts' do
-      expect(game.attempts_total).to eql difficulty.level[:attempts]
-    end
-  end
-
-  context 'with attempts' do
-    it 'attempt changed' do
-      game.instance_variable_set(:@attempts_used, 0)
-      expect { game.attempt }.to change(game, :attempts_used).from(0).to(1)
-    end
-  end
-
-  context 'when hints' do
-    it 'hints used' do
-      game.instance_variable_set(:@hints_used, 1)
-      expect { game.increment_hint }.to change(game, :hints_used).from(1).to(2)
+      expect(game.attempts_total).to eql difficulty.difficulty_level[:attempts]
     end
   end
 end

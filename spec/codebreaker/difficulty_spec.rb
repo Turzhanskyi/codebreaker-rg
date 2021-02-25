@@ -8,7 +8,8 @@ RSpec.describe Codebreaker::Difficulty do
   let(:incorrect_difficulty_names) { [:custom, nil] }
 
   it 'valid with correct difficulty' do
-    expect(difficulty.new(correct_difficulty_name).level[:name]).to eql(correct_difficulty_name)
+    expect(difficulty.new(correct_difficulty_name)
+                     .difficulty_level[:name]).to eql(correct_difficulty_name)
   end
 
   it 'not valid with incorrect difficulty' do

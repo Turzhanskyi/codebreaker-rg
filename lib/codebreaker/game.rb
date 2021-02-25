@@ -6,7 +6,7 @@ module Codebreaker
 
     def initialize(user, difficulty)
       @user = user
-      @difficulty = difficulty.level
+      @difficulty = difficulty.difficulty_level
       @secret_code = code_generator
       assign_hints
       @hints_used = 0
@@ -19,14 +19,6 @@ module Codebreaker
 
     def attempts_total
       @difficulty[:attempts]
-    end
-
-    def attempt
-      @attempts_used += 1
-    end
-
-    def increment_hint
-      @hints_used += 1
     end
 
     def hints_available?
@@ -62,6 +54,14 @@ module Codebreaker
       @hints = @secret_code.chars.sample(difficulty[:hints])
     end
 
+    def attempt
+      @attempts_used += 1
+    end
+
+    def increment_hint
+      @hints_used += 1
+    end
+
     def code_generator
       Array.new(Codebreaker::Constants::CODE_LENGTH) do
         rand(Codebreaker::Constants::CODE_RANGE)
@@ -90,7 +90,7 @@ module Codebreaker
     def not_strong_match(secret_codes, user_codes)
       output = ''
       secret_codes.each do |code|
-        next unless code && user_codes.include?(code)
+        next unless code && user_codes.compact.include?(code)
 
         output += Codebreaker::Constants::MINUS
         user_codes.delete_at(user_codes.index(code))

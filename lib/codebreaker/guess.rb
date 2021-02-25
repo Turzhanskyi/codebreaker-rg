@@ -28,13 +28,13 @@ module Codebreaker
 
     def validate_length
       error_message = I18n.t(:'errors.guess.length', length: Codebreaker::Constants::CODE_LENGTH)
-      errors << error_message unless @value.to_s.length == Codebreaker::Constants::CODE_LENGTH
+      errors << error_message unless value.to_s.length == Codebreaker::Constants::CODE_LENGTH
     end
 
     def validate_range
       error_message = I18n.t(:'errors.guess.range', range: Codebreaker::Constants::CODE_RANGE)
       allowed_range = Codebreaker::Constants::CODE_RANGE.to_a
-      is_valid_range = @value.to_s.chars.map(&:to_i).all? { |n| allowed_range.include? n }
+      is_valid_range = value.to_s.chars.map(&:to_i).all? { |n| allowed_range.include? n }
       errors << error_message unless is_valid_range
     end
   end
