@@ -1,0 +1,23 @@
+require:
+  - rubocop-rspec
+  - rubocop-performance
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 2.7.2
+  NewCops: enable
+
+Layout/LineLength:
+  Max: 100
+
+Style/Documentation:
+  Enabled: false
+
+Style/RedundantFetchBlock:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
